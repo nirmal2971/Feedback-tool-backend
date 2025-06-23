@@ -25,7 +25,7 @@ while True:
         conn = psycopg2.connect(
             host=parsed.hostname,
             port=parsed.port or 5432,
-            database=parsed.path[1:],  # removes leading slash
+            database=parsed.path[1:].strip(),  # ✅ remove leading '/' and any trailing newlines/spaces
             user=parsed.username,
             password=parsed.password
         )
