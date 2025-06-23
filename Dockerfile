@@ -4,20 +4,20 @@ FROM python:3.11-slim
 # Set working directory inside the container
 WORKDIR /app
 
-# Copy dependency file first
+# Copy dependency file from root
 COPY requirements.txt .
 
-# Install dependencies
+# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of your code
-COPY . .
+# Copy backend code (inside app/) into container's /app folder
+COPY app/ .
 
-# Expose FastAPI port
+# Expose FastAPI port (required for Render)
 EXPOSE 8000
 
-# Set environment variable for database
+# Environment variable for DB (optional for SQLite)
 ENV DATABASE_URL=sqlite:///./test.db
 
-# Run FastAPI app (correctly points to app.mains)
-CMD ["uvicorn", "app.mains:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run FastAPI app from mains.py inside /app folder
+CMD ["uvicorn", "mains:app", "--host", "0.0.]()
