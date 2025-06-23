@@ -5,6 +5,16 @@ A full-stack internal feedback management tool designed for organizations. This 
 
 ---
 
+## 🚀 Live Demo
+
+- 🔗 **Frontend**: [https://feedback-tool-backend.vercel.app](https://feedback-tool-backend.vercel.app)
+- 🔗 **Backend API**: [https://feedback-tool-backend-b2y7.onrender.com](https://feedback-tool-backend-b2y7.onrender.com)
+
+> ⚠️ You must register and log in to access the dashboard. Roles are assigned based on registration.
+
+---
+
+
 ## 📦 Features
 
 ### 👨‍💼 Manager Role
