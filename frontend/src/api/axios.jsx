@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL, // 👈 CRA expects REACT_APP_ prefix
+  baseURL: process.env.REACT_APP_API_URL,
 });
 
 export const loginUser = async (credentials) => {
