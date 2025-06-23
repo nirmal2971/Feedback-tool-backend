@@ -11,6 +11,9 @@ from app.feedback import router as feedback_router
 
 # ✅ Load DB URL from env
 db_url = os.getenv("DATABASE_URL")
+if not db_url:
+    raise ValueError("❌ DATABASE_URL is not set. Check Render environment variables.")
+
 parsed = urlparse(db_url)
 
 start_time = time.time()
@@ -18,6 +21,7 @@ timeout = 30  # seconds
 
 while True:
     try:
+        print("✅ Trying DB connection to:", parsed.hostname, parsed.path[1:])
         conn = psycopg2.connect(
             host=parsed.hostname,
             port=parsed.port or 5432,
@@ -35,6 +39,7 @@ while True:
             raise SystemExit("Database not available")
         print("⏳ Waiting for the database to start...")
         time.sleep(2)
+
 
 # ✅ Create tables after DB is ready
 models.Base.metadata.create_all(bind=database.engine)
