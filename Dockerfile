@@ -1,23 +1,23 @@
 # Use official Python image
 FROM python:3.11-slim
 
-# Set working directory
+# Set working directory inside the container
 WORKDIR /app
 
-# Copy requirements.txt from project root
+# Copy requirement file from root
 COPY requirements.txt .
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy backend code (inside app/) into container
-COPY app/ .
+# Copy everything from root to container /app
+COPY . .
 
-# Expose FastAPI port
+# Expose FastAPI default port
 EXPOSE 8000
 
-# Default database (change on Render dashboard if needed)
-ENV DATABASE_URL="sqlite:///./test.db"
+# Set environment variable for database
+ENV DATABASE_URL=sqlite:///./test.db
 
-# Start the FastAPI server
-CMD ["uvicorn", "mains:app", "--host", "0.0.0.0", "--port", "8000"]
+# Start FastAPI from app/mains.py
+CMD ["uvicorn", "app.mains:app", "--host", "0.0.0.0", "--port", "8000"]
