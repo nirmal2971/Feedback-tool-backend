@@ -16,8 +16,8 @@ COPY . .
 # Expose FastAPI default port
 EXPOSE 8000
 
-# Set environment variable for database
-ENV DATABASE_URL=sqlite:///./test.db
+# # Set environment variable for database
+# ENV DATABASE_URL=sqlite:///./test.db
 
 # Start FastAPI from app/mains.py
 CMD ["sh", "-c", "uvicorn app.mains:app --host 0.0.0.0 --port ${PORT:-8000}"]
