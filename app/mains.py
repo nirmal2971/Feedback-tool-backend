@@ -51,7 +51,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",  # for local dev
-        "https://feedback-tool-frontend.vercel.app"  # deployed frontend
+        "https://feedback-tool-backend.vercel.app"  # ✅ correct deployed frontend
     ],
     allow_credentials=True,
     allow_methods=["*"],
