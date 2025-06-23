@@ -1,29 +1,37 @@
 import time
 import psycopg2
+import os
+from urllib.parse import urlparse
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app import models, database
 from app.auth import router as auth_router
 from app.feedback import router as feedback_router
 
-# ✅ Add timeout to avoid infinite loop
+# ✅ Load DB URL from env
+db_url = os.getenv("DATABASE_URL")
+parsed = urlparse(db_url)
+
 start_time = time.time()
 timeout = 30  # seconds
 
 while True:
     try:
         conn = psycopg2.connect(
-            host="db",  # 🔁 If using Render's hosted PostgreSQL, this should be the actual hostname
-            database="feedback_db",
-            user="postgres",
-            password="password"
+            host=parsed.hostname,
+            port=parsed.port or 5432,
+            database=parsed.path[1:],  # removes leading slash
+            user=parsed.username,
+            password=parsed.password
         )
         conn.close()
         print("✅ Database is ready!")
         break
-    except psycopg2.OperationalError:
+    except psycopg2.OperationalError as e:
         if time.time() - start_time > timeout:
             print("❌ Timeout: Database did not become ready.")
+            print("Error:", e)
             raise SystemExit("Database not available")
         print("⏳ Waiting for the database to start...")
         time.sleep(2)
