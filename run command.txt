@@ -1,0 +1,4 @@
+run command 
+
+python -m uvicorn app.mains:app --reload
+.\venv\Scripts\activate
