@@ -4,7 +4,8 @@ from sqlalchemy.orm import sessionmaker
 import os
 
 # ✅ Get the database URL from environment (Docker ENV or .env file)
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = os.getenv("DATABASE_URL").strip()
+print("🔎 DATABASE_URL =", repr(DATABASE_URL))
 
 # ✅ Fail early if it's missing
 if not DATABASE_URL:
